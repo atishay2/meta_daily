@@ -51,3 +51,34 @@ LC : 708. Insert into a Sorted Circular Linked List (R E V I S E)
             cur.next = new_node
                     
             return head 
+
+LC : 314. Binary Tree Vertical Order Traversal (Revisit)
+
+![image](https://github.com/atishay2/meta_daily/assets/52835993/f2989267-1754-44cd-ac05-7790dc4cc4d8)
+![image](https://github.com/atishay2/meta_daily/assets/52835993/a7e1f04f-ba2d-4d95-8c2c-59d71e1a92d1)
+
+    class Solution:
+        def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+            if not root: return []
+            dic = {} 
+            
+            def dfs(node, level, depth):
+                if node is None: return 
+                
+                if level not in dic : dic[level] = [(depth, node.val)]
+                else : dic[level].append((depth,node.val))
+                
+                left = dfs(node.left, level + 1, depth+1)
+                right = dfs(node.right, level - 1, depth+1)
+    
+            dfs(root, 0, 0)
+            res = []
+            
+            for x in range(max(dic.keys()), min(dic.keys())-1, -1):
+                dic[x].sort()
+                cur = []
+                
+                for a,b in (dic[x]):
+                    cur.append(b)
+                res.append(cur)
+            return res
